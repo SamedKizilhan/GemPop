@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e338c1fa64934087baa19b253f337aa, type: 3}
+  m_Name: ItemPrefabSet
+  m_EditorClassIdentifier: Assembly-CSharp::GemPop.Gameplay.ItemPrefabSet
+  cube: {fileID: 2525513397801719159, guid: 0dd9d3ce64c4c4ba9abb95ef5bbea119, type: 3}
+  rocket: {fileID: 5468361576654133334, guid: 661e89a944b084fbabe1b9a31d41116e, type: 3}
+  tnt: {fileID: 4217032224801041252, guid: 08034e6dc77a14725bd5dfb91d06ea5c, type: 3}
+  vase: {fileID: 1583850753789771254, guid: 22e743b26221743ddbbd34f8264af544, type: 3}
+  stone: {fileID: 8213149546511631311, guid: 6a28b4ab2a8c24fcd81bf7ce79b7eecc, type: 3}
+  chaliceBox: {fileID: 861830661341600522, guid: 80cabd892742345bd80fbae5b8a2c8c8, type: 3}
+  cubeParticles:
+  - {fileID: 21300000, guid: 0d5750d2f20d04e86a890540f16658ce, type: 3}
+  - {fileID: 21300000, guid: 153b8ffaca2204b5b90447a7f110be4d, type: 3}
+  - {fileID: 21300000, guid: 649e2a4a907244d3e9687c85823bd4bf, type: 3}
+  - {fileID: 21300000, guid: 8afe978b4797f4decab4f6fe5c2ee0a7, type: 3}
+  vaseParticles:
+  - {fileID: 21300000, guid: 2873ee23ff9064d4ea86e90d65d92b8c, type: 3}
+  - {fileID: 21300000, guid: c88b01e636fd543e3acc85c3316e1c90, type: 3}
+  - {fileID: 21300000, guid: 1fff5a824357e44978d0754e7a0a3cb9, type: 3}
+  stoneParticles:
+  - {fileID: 21300000, guid: aa6e158386cb74ecba60839f4e9fb252, type: 3}
+  - {fileID: 21300000, guid: a2dc5492c41d241b5b2f95341d467dc6, type: 3}
+  - {fileID: 21300000, guid: 11e0caa18877741f49a85785fde28693, type: 3}
+  tntParticles:
+  - {fileID: 21300000, guid: 81328be44534e4bb9b43bc983f87c678, type: 3}
+  - {fileID: 21300000, guid: 5949b83f1d9b6471280d96a1a7c0e97f, type: 3}
+  chaliceBoxParticles:
+  - {fileID: 21300000, guid: b2fd7503c2e8c4f5aad4f01ec6d4d36e, type: 3}
+  - {fileID: 21300000, guid: f54042a71e67b407ea09d210f7b741a5, type: 3}
+  - {fileID: 21300000, guid: 2145ed7c81c8a409bba9a6e3093011fb, type: 3}
+  - {fileID: 21300000, guid: deeca9e5ff2894dcfa0299f9898fe3ca, type: 3}
+  - {fileID: 21300000, guid: 50d5528e856ad4e4bb01e91ce3c1a1ea, type: 3}
+  chaliceDoorParticles:
+  - {fileID: 21300000, guid: bc6ad37b86b8349feba1fe3493b3f121, type: 3}
+  - {fileID: 21300000, guid: 0dedd05d3a94f42c78170264fd448fb0, type: 3}
+  - {fileID: 21300000, guid: 7773018d5e641483f982dd5a10951b2b, type: 3}
+  - {fileID: 21300000, guid: 254708e0b502a4beeb9371bedc39ba17, type: 3}
+  smokeParticle: {fileID: 21300000, guid: acad3dd8abcb24b759c7c6057e771a77, type: 3}
+  sparkParticle: {fileID: 21300000, guid: 1ef9b9c449cae4181a4389b3a4ff269f, type: 3}
+  rocketPartLeft: {fileID: 21300000, guid: 3dd2c0d2ff6f449039334a71efa3e357, type: 3}
+  rocketPartRight: {fileID: 21300000, guid: 4ef13c261a63a4ba18ecbc3a1d1885f1, type: 3}
+  rocketPartTop: {fileID: 21300000, guid: ba4201ff3550448178b51051e68dca54, type: 3}
+  rocketPartBottom: {fileID: 21300000, guid: 2a4f1819fac464832aeeed6f350319b4, type: 3}
