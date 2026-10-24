@@ -1,13 +1,13 @@
 namespace GemPop.Items
 {
-    /// <summary>What caused the damage. Obstacles react differently to each (e.g. stones ignore blasts).</summary>
-    public enum DamageSource { Blast, Rocket, Tnt, Combo }
+    /// <summary>What caused the damage. Obstacles react differently to each (e.g. rocks ignore blasts).</summary>
+    public enum DamageSource { Blast, Rocket, Bomb, Combo }
 
     public enum DamageOutcome { Ignored, Damaged, Destroyed }
 
     /// <summary>
     /// One hit on one item. EventId identifies the explosion/blast the hit belongs to, so an item can
-    /// apply "at most once per event" rules (vase, chalice box door) without knowing who hit it.
+    /// apply "at most once per event" rules (crate, coin box door) without knowing who hit it.
     /// </summary>
     public readonly struct DamageInfo
     {

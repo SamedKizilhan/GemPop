@@ -12,18 +12,18 @@ namespace GemPop.Gameplay
     {
         [SerializeField] private Cube cube;
         [SerializeField] private Rocket rocket;
-        [SerializeField] private Tnt tnt;
-        [SerializeField] private Vase vase;
-        [SerializeField] private Stone stone;
-        [SerializeField] private ChaliceBox chaliceBox;
+        [SerializeField] private Bomb bomb;
+        [SerializeField] private Crate crate;
+        [SerializeField] private Rock rock;
+        [SerializeField] private Chest chest;
 
         [Header("Particles")]
         [SerializeField] private Sprite[] cubeParticles = new Sprite[4];   // indexed by CubeColor
-        [SerializeField] private Sprite[] vaseParticles;
-        [SerializeField] private Sprite[] stoneParticles;
-        [SerializeField] private Sprite[] tntParticles;
-        [SerializeField] private Sprite[] chaliceBoxParticles;
-        [SerializeField] private Sprite[] chaliceDoorParticles;
+        [SerializeField] private Sprite[] crateParticles;
+        [SerializeField] private Sprite[] rockParticles;
+        [SerializeField] private Sprite[] bombParticles;
+        [SerializeField] private Sprite[] chestParticles;
+        [SerializeField] private Sprite[] coinDoorParticles;
         [SerializeField] private Sprite smokeParticle;
         [SerializeField] private Sprite sparkParticle;
 
@@ -35,21 +35,21 @@ namespace GemPop.Gameplay
 
         public Cube Cube => cube;
         public Rocket Rocket => rocket;
-        public Tnt Tnt => tnt;
-        public Vase Vase => vase;
-        public Stone Stone => stone;
-        public ChaliceBox ChaliceBox => chaliceBox;
+        public Bomb Bomb => bomb;
+        public Crate Crate => crate;
+        public Rock Rock => rock;
+        public Chest Chest => chest;
 
         public Sprite[] CubeParticle(CubeColor color) => new[] { cubeParticles[(int)color] };
-        public Sprite[] VaseParticles => vaseParticles;
-        public Sprite[] StoneParticles => stoneParticles;
-        public Sprite[] TntParticles => tntParticles;
-        public Sprite[] ChaliceBoxParticles => chaliceBoxParticles;
-        public Sprite[] ChaliceDoorParticles => chaliceDoorParticles;
+        public Sprite[] CrateParticles => crateParticles;
+        public Sprite[] RockParticles => rockParticles;
+        public Sprite[] BombParticles => bombParticles;
+        public Sprite[] ChestParticles => chestParticles;
+        public Sprite[] CoinDoorParticles => coinDoorParticles;
         public Sprite SmokeParticle => smokeParticle;
         public Sprite SparkParticle => sparkParticle;
-        public Sprite TntRing => tntParticles != null && tntParticles.Length > 0 ? tntParticles[0] : null;
-        public Sprite TntFlash => tntParticles != null && tntParticles.Length > 1 ? tntParticles[1] : null;
+        public Sprite BombRing => bombParticles != null && bombParticles.Length > 0 ? bombParticles[0] : null;
+        public Sprite BombFlash => bombParticles != null && bombParticles.Length > 1 ? bombParticles[1] : null;
 
         /// <summary>Sprite of the rocket half that flies in 'direction'.</summary>
         public Sprite RocketPart(Vector2Int direction)
@@ -61,9 +61,9 @@ namespace GemPop.Gameplay
         }
 
 #if UNITY_EDITOR
-        public void EditorAssign(Cube c, Rocket r, Tnt t, Vase v, Stone s, ChaliceBox cb)
+        public void EditorAssign(Cube c, Rocket r, Bomb t, Crate v, Rock s, Chest cb)
         {
-            cube = c; rocket = r; tnt = t; vase = v; stone = s; chaliceBox = cb;
+            cube = c; rocket = r; bomb = t; crate = v; rock = s; chest = cb;
         }
 
         public void EditorAssignRocketParts(Sprite left, Sprite right, Sprite top, Sprite bottom)
@@ -71,11 +71,11 @@ namespace GemPop.Gameplay
             rocketPartLeft = left; rocketPartRight = right; rocketPartTop = top; rocketPartBottom = bottom;
         }
 
-        public void EditorAssignParticles(Sprite[] cubes, Sprite[] vase, Sprite[] stone, Sprite[] tnt,
-                                          Sprite[] chaliceBox, Sprite[] chaliceDoor, Sprite smoke, Sprite spark)
+        public void EditorAssignParticles(Sprite[] cubes, Sprite[] crate, Sprite[] rock, Sprite[] bomb,
+                                          Sprite[] chest, Sprite[] coinDoor, Sprite smoke, Sprite spark)
         {
-            cubeParticles = cubes; vaseParticles = vase; stoneParticles = stone; tntParticles = tnt;
-            chaliceBoxParticles = chaliceBox; chaliceDoorParticles = chaliceDoor; smokeParticle = smoke; sparkParticle = spark;
+            cubeParticles = cubes; crateParticles = crate; rockParticles = rock; bombParticles = bomb;
+            chestParticles = chest; coinDoorParticles = coinDoor; smokeParticle = smoke; sparkParticle = spark;
         }
 #endif
     }

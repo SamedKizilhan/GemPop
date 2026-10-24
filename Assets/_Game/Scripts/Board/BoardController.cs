@@ -36,7 +36,7 @@ namespace GemPop.Gameplay
         /// <summary>Raised for every item removed by damage (goal tracking listens for obstacles).</summary>
         public event Action<GridItem> ItemDestroyed;
 
-        /// <summary>Raised when an item survives a hit but changed (vase cracked, chalices collected).</summary>
+        /// <summary>Raised when an item survives a hit but changed (crate cracked, coins collected).</summary>
         public event Action<GridItem> ItemDamaged;
 
         /// <summary>Set by the level flow while a popup is open; taps are ignored.</summary>
@@ -74,11 +74,11 @@ namespace GemPop.Gameplay
                         continue;
                     }
 
-                    // A chalice box is written as 4 codes; only its bottom-left corner creates the object.
-                    if (spec.Kind == ItemKind.ChaliceBoxPart && spec.Corner != ChaliceCorner.BottomLeft)
+                    // A coin box is written as 4 codes; only its bottom-left corner creates the object.
+                    if (spec.Kind == ItemKind.ChestPart && spec.Corner != ChestCorner.BottomLeft)
                     {
-                        if (!(Board.Get(x, y) is ChaliceBox))
-                            Debug.LogError($"[Board] Chalice box corner '{code}' at ({x},{y}) has no matching bottom-left corner");
+                        if (!(Board.Get(x, y) is Chest))
+                            Debug.LogError($"[Board] Coin box corner '{code}' at ({x},{y}) has no matching bottom-left corner");
                         continue;
                     }
 
@@ -213,7 +213,7 @@ namespace GemPop.Gameplay
 
         /// <summary>
         /// Groups of 4+: spec says cubes animate to the tapped cell and a special item appears there
-        /// (4-5 -> random rocket, 6+ -> TNT).
+        /// (4-5 -> random rocket, 6+ -> Bomb).
         /// </summary>
         private IEnumerator GatherIntoSpecial(List<Cube> group, Vector2Int tappedCell, HintType creates)
         {
@@ -227,8 +227,8 @@ namespace GemPop.Gameplay
                 _factory.Release(cube);
             }
 
-            GridItem special = creates == HintType.Tnt
-                ? _factory.CreateTnt()
+            GridItem special = creates == HintType.Bomb
+                ? _factory.CreateBomb()
                 : _factory.CreateRocket(UnityEngine.Random.value < 0.5f ? RocketDirection.Horizontal : RocketDirection.Vertical);
 
             Board.Place(special, tappedCell);
@@ -327,7 +327,7 @@ namespace GemPop.Gameplay
 
         /// <summary>
         /// Higher rows are drawn in front (matches the reference art: a cube's bottom edge covers the top
-        /// edge of the cube below it). Multiples of 10 leave room for per-item layers (e.g. chalice box doors).
+        /// edge of the cube below it). Multiples of 10 leave room for per-item layers (e.g. coin box doors).
         /// </summary>
         public int SortingOrderFor(int y) => (y + 1) * 10;
     }

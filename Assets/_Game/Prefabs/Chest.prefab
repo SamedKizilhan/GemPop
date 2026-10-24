@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 798612956196227983}
   - component: {fileID: 2903360073037267718}
   m_Layer: 0
-  m_Name: Chalice8
+  m_Name: Coin8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 1308443044668442347}
   - component: {fileID: 2527911887127606353}
   m_Layer: 0
-  m_Name: Chalice7
+  m_Name: Coin7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 7509220806171394459}
   - component: {fileID: 9085903384555761104}
   m_Layer: 0
-  m_Name: Chalice0
+  m_Name: Coin0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 2153095471858146341}
   - component: {fileID: 1257493411862870050}
   m_Layer: 0
-  m_Name: Chalice9
+  m_Name: Coin9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 7763720156350779988}
   - component: {fileID: 5181560352723918223}
   m_Layer: 0
-  m_Name: Chalice6
+  m_Name: Coin6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,7 +647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3586108581072464952}
   m_Layer: 0
-  m_Name: Chalices
+  m_Name: Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 29508020217697682}
   - component: {fileID: 1799393102373680814}
   m_Layer: 0
-  m_Name: Chalice4
+  m_Name: Coin4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 6609882060954231009}
   - component: {fileID: 3993153604458582725}
   m_Layer: 0
-  m_Name: Chalice2
+  m_Name: Coin2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 3702993989426979378}
   - component: {fileID: 861830661341600522}
   m_Layer: 0
-  m_Name: ChaliceBox
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -906,14 +906,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 538f5155484784a2888a5c34786e54a0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GemPop.Items.ChaliceBox
+  m_EditorClassIdentifier: Assembly-CSharp::GemPop.Items.Chest
   mainRenderer: {fileID: 1675179157764248540}
   cellFill: 0.96
   visualOffset: {x: 0, y: 0}
   verticalStretch: 1
   maxHealth: 10
   doorsRenderer: {fileID: 1925600563655997757}
-  chaliceRenderers:
+  coinRenderers:
   - {fileID: 9085903384555761104}
   - {fileID: 774248322241843938}
   - {fileID: 3993153604458582725}
@@ -935,7 +935,7 @@ GameObject:
   - component: {fileID: 449701108515773564}
   - component: {fileID: 774248322241843938}
   m_Layer: 0
-  m_Name: Chalice1
+  m_Name: Coin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 1073764655934220640}
   - component: {fileID: 7218878958812849738}
   m_Layer: 0
-  m_Name: Chalice3
+  m_Name: Coin3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1117,7 +1117,7 @@ GameObject:
   - component: {fileID: 3790619176288590901}
   - component: {fileID: 6499400068629745300}
   m_Layer: 0
-  m_Name: Chalice5
+  m_Name: Coin5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

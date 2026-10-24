@@ -14,9 +14,9 @@ namespace GemPop.UI
         [SerializeField] private TMP_Text movesText;
         [SerializeField] private TMP_Text[] tabLabels;
         [SerializeField] private GoalSlot[] slots;
-        [SerializeField] private Sprite vaseIcon;
-        [SerializeField] private Sprite stoneIcon;
-        [SerializeField] private Sprite chaliceIcon;
+        [SerializeField] private Sprite crateIcon;
+        [SerializeField] private Sprite rockIcon;
+        [SerializeField] private Sprite coinIcon;
 
         private GoalTracker _goals;
         private MoveTracker _moves;
@@ -87,15 +87,15 @@ namespace GemPop.UI
 
         private Sprite IconFor(GoalType type) => type switch
         {
-            GoalType.Vase => vaseIcon,
-            GoalType.Stone => stoneIcon,
-            _ => chaliceIcon,
+            GoalType.Crate => crateIcon,
+            GoalType.Rock => rockIcon,
+            _ => coinIcon,
         };
 
 #if UNITY_EDITOR
-        public void EditorWire(TMP_Text moves, GoalSlot[] goalSlots, Sprite vase, Sprite stone, Sprite chalice, TMP_Text[] tabs)
+        public void EditorWire(TMP_Text moves, GoalSlot[] goalSlots, Sprite crate, Sprite rock, Sprite coin, TMP_Text[] tabs)
         {
-            movesText = moves; slots = goalSlots; vaseIcon = vase; stoneIcon = stone; chaliceIcon = chalice; tabLabels = tabs;
+            movesText = moves; slots = goalSlots; crateIcon = crate; rockIcon = rock; coinIcon = coin; tabLabels = tabs;
         }
 #endif
     }

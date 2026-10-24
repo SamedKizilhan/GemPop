@@ -66,12 +66,12 @@ namespace GemPop.Gameplay
             return rocket;
         }
 
-        public Tnt CreateTnt() => Object.Instantiate(_prefabs.Tnt, _parent);
-        public Vase CreateVase() => Object.Instantiate(_prefabs.Vase, _parent);
-        public Stone CreateStone() => Object.Instantiate(_prefabs.Stone, _parent);
-        public ChaliceBox CreateChaliceBox() => Object.Instantiate(_prefabs.ChaliceBox, _parent);
+        public Bomb CreateBomb() => Object.Instantiate(_prefabs.Bomb, _parent);
+        public Crate CreateCrate() => Object.Instantiate(_prefabs.Crate, _parent);
+        public Rock CreateRock() => Object.Instantiate(_prefabs.Rock, _parent);
+        public Chest CreateChest() => Object.Instantiate(_prefabs.Chest, _parent);
 
-        /// <summary>Creates the item a level code asks for. Chalice box parts other than BottomLeft return null.</summary>
+        /// <summary>Creates the item a level code asks for. Coin box parts other than BottomLeft return null.</summary>
         public GridItem Create(ItemSpec spec)
         {
             switch (spec.Kind)
@@ -79,11 +79,11 @@ namespace GemPop.Gameplay
                 case ItemKind.Cube:       return CreateCube(spec.Color);
                 case ItemKind.RandomCube: return CreateCube(RandomColor());
                 case ItemKind.Rocket:     return CreateRocket(spec.Direction);
-                case ItemKind.Tnt:        return CreateTnt();
-                case ItemKind.Vase:       return CreateVase();
-                case ItemKind.Stone:      return CreateStone();
-                case ItemKind.ChaliceBoxPart:
-                    return spec.Corner == ChaliceCorner.BottomLeft ? CreateChaliceBox() : null;
+                case ItemKind.Bomb:        return CreateBomb();
+                case ItemKind.Crate:       return CreateCrate();
+                case ItemKind.Rock:      return CreateRock();
+                case ItemKind.ChestPart:
+                    return spec.Corner == ChestCorner.BottomLeft ? CreateChest() : null;
                 default:
                     Debug.LogError($"[ItemFactory] Unknown item kind {spec.Kind}");
                     return null;

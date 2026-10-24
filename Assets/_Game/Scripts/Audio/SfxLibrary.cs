@@ -5,8 +5,8 @@ namespace GemPop.Audio
 {
     public enum Sfx
     {
-        CubePop, SpecialCreated, RocketWhoosh, TntBoom, StoneCrack, VaseCrack, VaseBreak,
-        DoorBreak, ChaliceClink, ChaliceBoxBreak, Click, Invalid, Win, Fail
+        CubePop, SpecialCreated, RocketWhoosh, BombBoom, RockCrack, CrateCrack, CrateBreak,
+        DoorBreak, CoinClink, ChestBreak, Click, Invalid, Win, Fail
     }
 
     /// <summary>Every sound effect, synthesized once at startup. Each entry is a few lines of signal math.</summary>
@@ -18,13 +18,13 @@ namespace GemPop.Audio
             Sfx.CubePop => 0.55f,
             Sfx.SpecialCreated => 0.7f,
             Sfx.RocketWhoosh => 0.8f,
-            Sfx.TntBoom => 1.0f,
-            Sfx.StoneCrack => 1.0f,
-            Sfx.VaseCrack => 0.7f,
-            Sfx.VaseBreak => 0.85f,
+            Sfx.BombBoom => 1.0f,
+            Sfx.RockCrack => 1.0f,
+            Sfx.CrateCrack => 0.7f,
+            Sfx.CrateBreak => 0.85f,
             Sfx.DoorBreak => 0.9f,
-            Sfx.ChaliceClink => 0.7f,
-            Sfx.ChaliceBoxBreak => 0.9f,
+            Sfx.CoinClink => 0.7f,
+            Sfx.ChestBreak => 0.9f,
             Sfx.Click => 0.5f,
             Sfx.Invalid => 0.5f,
             Sfx.Win => 0.9f,
@@ -36,13 +36,13 @@ namespace GemPop.Audio
             Sfx.CubePop         => CubePop(),
             Sfx.SpecialCreated  => Chime("SpecialCreated", 88, 95),           // E6 -> B6
             Sfx.RocketWhoosh    => Whoosh(),
-            Sfx.TntBoom         => Boom(),
-            Sfx.StoneCrack      => StoneCrack(),
-            Sfx.VaseCrack       => Crack("VaseCrack", 0.12f, 0.04f, 0.9f),
-            Sfx.VaseBreak       => VaseBreak(),
+            Sfx.BombBoom         => Boom(),
+            Sfx.RockCrack      => RockCrack(),
+            Sfx.CrateCrack       => Crack("CrateCrack", 0.12f, 0.04f, 0.9f),
+            Sfx.CrateBreak       => CrateBreak(),
             Sfx.DoorBreak       => Crack("DoorBreak", 0.3f, 0.1f, 0.25f),
-            Sfx.ChaliceClink    => Clink("ChaliceClink", 2637f, 3951f, 0.35f),
-            Sfx.ChaliceBoxBreak => Clink("ChaliceBoxBreak", 1760f, 2637f, 0.6f),
+            Sfx.CoinClink    => Clink("CoinClink", 2637f, 3951f, 0.35f),
+            Sfx.ChestBreak => Clink("ChestBreak", 1760f, 2637f, 0.6f),
             Sfx.Click           => Click(),
             Sfx.Invalid         => Thud(),
             Sfx.Win             => WinJingle(),
@@ -90,7 +90,7 @@ namespace GemPop.Audio
         private static AudioClip Boom()
         {
             float phase = 0f, low = 0f, mid = 0f;
-            return Render("TntBoom", 1.2f, (t, i) =>
+            return Render("BombBoom", 1.2f, (t, i) =>
             {
                 float n = Noise();
                 float crack = n * Decay(t, 0.03f) * 1.5f;                          // initial snap
@@ -106,12 +106,12 @@ namespace GemPop.Audio
         }
 
         /// <summary>Rock shattering: a crack, then a quick cascade of smaller debris hits with a stony mid-range tone.</summary>
-        private static AudioClip StoneCrack()
+        private static AudioClip RockCrack()
         {
             float[] hits = { 0f, 0.035f, 0.06f, 0.095f, 0.13f, 0.18f, 0.24f };   // debris landing
             float[] gains = { 1.5f, 0.9f, 1.1f, 0.7f, 0.8f, 0.5f, 0.4f };
             float low = 0f, band = 0f, phase = 0f;
-            return Render("StoneCrack", 0.45f, (t, i) =>
+            return Render("RockCrack", 0.45f, (t, i) =>
             {
                 float n = Noise();
                 low += 0.05f * (n - low);                  // rumble (lower corner = deeper)
@@ -131,7 +131,7 @@ namespace GemPop.Audio
             });
         }
 
-        /// <summary>Noise burst with a second smaller burst: stone, vase crack, wooden door. 'brightness' = how much high end.</summary>
+        /// <summary>Noise burst with a second smaller burst: rock, crate crack, wooden door. 'brightness' = how much high end.</summary>
         private static AudioClip Crack(string name, float length, float decay, float brightness)
         {
             float low = 0f;
@@ -146,12 +146,12 @@ namespace GemPop.Audio
         }
 
         /// <summary>Shatter: bright noise plus three ringing shards.</summary>
-        private static AudioClip VaseBreak()
+        private static AudioClip CrateBreak()
         {
             float low = 0f;
             float[] shards = { 2400f, 3100f, 4150f };
             float[] starts = { 0f, 0.03f, 0.07f };
-            return Render("VaseBreak", 0.4f, (t, i) =>
+            return Render("CrateBreak", 0.4f, (t, i) =>
             {
                 float n = Noise();
                 low += 0.3f * (n - low);

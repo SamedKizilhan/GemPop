@@ -7,7 +7,7 @@ namespace GemPop.Systems
 {
     /// <summary>
     /// "Adjacent blast" damage: when a cube group blasts, every obstacle touching the group is hit once,
-    /// with Amount = how many cubes of the group touch it (the chalice box uses that number; vases and the
+    /// with Amount = how many cubes of the group touch it (the coin box uses that number; crates and the
     /// door phase only care that it happened). Call it BEFORE the group is removed from the board.
     /// </summary>
     public static class AdjacencyDamage

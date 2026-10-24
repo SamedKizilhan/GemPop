@@ -5,12 +5,12 @@ using GemPop.Items;
 
 namespace GemPop.Systems
 {
-    public enum GoalType { Vase, Stone, Chalice }
+    public enum GoalType { Crate, Rock, Coin }
 
     /// <summary>
     /// "Obstacles are goals of levels." Keeps the remaining count per goal type by recounting the board,
     /// which is cheap (<= 100 cells) and can never drift out of sync with the model.
-    /// Chalice goal = sum of chalices still inside every box (10 per box).
+    /// Coin goal = sum of coins still inside every box (10 per box).
     /// </summary>
     public class GoalTracker
     {
@@ -28,7 +28,7 @@ namespace GemPop.Systems
         {
             _board = board;
             Count();
-            foreach (GoalType type in new[] { GoalType.Chalice, GoalType.Stone, GoalType.Vase })
+            foreach (GoalType type in new[] { GoalType.Coin, GoalType.Rock, GoalType.Crate })
                 if (_remaining[type] > 0) _goals.Add(type);
         }
 
@@ -42,17 +42,17 @@ namespace GemPop.Systems
 
         private void Count()
         {
-            _remaining[GoalType.Vase] = 0;
-            _remaining[GoalType.Stone] = 0;
-            _remaining[GoalType.Chalice] = 0;
+            _remaining[GoalType.Crate] = 0;
+            _remaining[GoalType.Rock] = 0;
+            _remaining[GoalType.Coin] = 0;
 
             foreach (GridItem item in _board.AllItems())
             {
                 switch (item)
                 {
-                    case Vase:           _remaining[GoalType.Vase]++; break;
-                    case Stone:          _remaining[GoalType.Stone]++; break;
-                    case ChaliceBox box: _remaining[GoalType.Chalice] += box.ChalicesRemaining; break;
+                    case Crate:           _remaining[GoalType.Crate]++; break;
+                    case Rock:          _remaining[GoalType.Rock]++; break;
+                    case Chest box: _remaining[GoalType.Coin] += box.CoinsRemaining; break;
                 }
             }
 

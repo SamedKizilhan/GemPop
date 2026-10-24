@@ -8,13 +8,13 @@ namespace GemPop.Audio
     /// <summary>
     /// Creates itself before the first scene, survives scene loads, and owns the two audio channels:
     /// looping music (picked by scene) and one-shot effects. All clips are synthesized at startup.
-    /// Gameplay code only says WHAT happened (AudioManager.Play(Sfx.VaseBreak)); nothing else leaks in.
+    /// Gameplay code only says WHAT happened (AudioManager.Play(Sfx.CrateBreak)); nothing else leaks in.
     /// </summary>
     public class AudioManager : MonoBehaviour
     {
         private const float MusicVolume = 0.28f;
         private const float SfxVolume = 0.85f;
-        private const float RepeatGuardSeconds = 0.05f;   // the same effect at most once per 50 ms (TNT kills 20 cubes at once)
+        private const float RepeatGuardSeconds = 0.05f;   // the same effect at most once per 50 ms (Bomb kills 20 cubes at once)
 
         private static AudioManager _instance;
 

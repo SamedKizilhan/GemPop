@@ -3,9 +3,9 @@ using GemPop.Items;
 
 namespace GemPop.Data
 {
-    public enum ItemKind { Cube, RandomCube, Rocket, Tnt, Stone, Vase, ChaliceBoxPart }
+    public enum ItemKind { Cube, RandomCube, Rocket, Bomb, Rock, Crate, ChestPart }
 
-    public enum ChaliceCorner { BottomLeft, BottomRight, TopLeft, TopRight }
+    public enum ChestCorner { BottomLeft, BottomRight, TopLeft, TopRight }
 
     /// <summary>Parsed meaning of one grid code such as "r", "rand", "vro", "cbTL".</summary>
     public readonly struct ItemSpec
@@ -13,9 +13,9 @@ namespace GemPop.Data
         public readonly ItemKind Kind;
         public readonly CubeColor Color;
         public readonly RocketDirection Direction;
-        public readonly ChaliceCorner Corner;
+        public readonly ChestCorner Corner;
 
-        public ItemSpec(ItemKind kind, CubeColor color = default, RocketDirection direction = default, ChaliceCorner corner = default)
+        public ItemSpec(ItemKind kind, CubeColor color = default, RocketDirection direction = default, ChestCorner corner = default)
         {
             Kind = kind; Color = color; Direction = direction; Corner = corner;
         }
@@ -36,13 +36,13 @@ namespace GemPop.Data
             ["rand"] = new ItemSpec(ItemKind.RandomCube),
             ["vro"]  = new ItemSpec(ItemKind.Rocket, direction: RocketDirection.Vertical),
             ["hro"]  = new ItemSpec(ItemKind.Rocket, direction: RocketDirection.Horizontal),
-            ["t"]    = new ItemSpec(ItemKind.Tnt),
-            ["s"]    = new ItemSpec(ItemKind.Stone),
-            ["v"]    = new ItemSpec(ItemKind.Vase),
-            ["cbBL"] = new ItemSpec(ItemKind.ChaliceBoxPart, corner: ChaliceCorner.BottomLeft),
-            ["cbBR"] = new ItemSpec(ItemKind.ChaliceBoxPart, corner: ChaliceCorner.BottomRight),
-            ["cbTL"] = new ItemSpec(ItemKind.ChaliceBoxPart, corner: ChaliceCorner.TopLeft),
-            ["cbTR"] = new ItemSpec(ItemKind.ChaliceBoxPart, corner: ChaliceCorner.TopRight),
+            ["t"]    = new ItemSpec(ItemKind.Bomb),
+            ["s"]    = new ItemSpec(ItemKind.Rock),
+            ["v"]    = new ItemSpec(ItemKind.Crate),
+            ["cbBL"] = new ItemSpec(ItemKind.ChestPart, corner: ChestCorner.BottomLeft),
+            ["cbBR"] = new ItemSpec(ItemKind.ChestPart, corner: ChestCorner.BottomRight),
+            ["cbTL"] = new ItemSpec(ItemKind.ChestPart, corner: ChestCorner.TopLeft),
+            ["cbTR"] = new ItemSpec(ItemKind.ChestPart, corner: ChestCorner.TopRight),
         };
 
         public static bool TryParse(string code, out ItemSpec spec) => Table.TryGetValue(code, out spec);

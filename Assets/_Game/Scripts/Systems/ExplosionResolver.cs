@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace GemPop.Systems
 {
-    public enum ExplosionKind { Rocket, Tnt, RocketRocket, TntTnt, TntRocket }
+    public enum ExplosionKind { Rocket, Bomb, RocketRocket, BombBomb, BombRocket }
 
     public readonly struct ExplosionRequest
     {
@@ -25,16 +25,16 @@ namespace GemPop.Systems
         public static ExplosionRequest For(SpecialItem item) => item switch
         {
             Rocket rocket => new ExplosionRequest(ExplosionKind.Rocket, rocket.Position, rocket.Direction),
-            _             => new ExplosionRequest(ExplosionKind.Tnt, item.Position),
+            _             => new ExplosionRequest(ExplosionKind.Bomb, item.Position),
         };
 
         /// <summary>Spec rules for a tapped group of adjacent special items.</summary>
         public static ExplosionKind ComboKind(List<SpecialItem> group)
         {
-            int tnts = 0;
-            foreach (SpecialItem s in group) if (s is Tnt) tnts++;
-            if (tnts >= 2) return ExplosionKind.TntTnt;
-            if (tnts == 1) return ExplosionKind.TntRocket;
+            int bombs = 0;
+            foreach (SpecialItem s in group) if (s is Bomb) bombs++;
+            if (bombs >= 2) return ExplosionKind.BombBomb;
+            if (bombs == 1) return ExplosionKind.BombRocket;
             return ExplosionKind.RocketRocket;
         }
     }
@@ -44,9 +44,9 @@ namespace GemPop.Systems
     /// everything queued now plays in parallel; specials hit during a wave are queued and form the next
     /// wave (chain reactions). Shapes:
     ///   Rocket       two halves fly in opposite directions, damaging cells one by one
-    ///   Tnt          5x5 area            TntTnt        7x7 area
+    ///   Bomb          5x5 area            BombBomb        7x7 area
     ///   RocketRocket a '+' of two rockets at the center
-    ///   TntRocket    3 horizontal + 3 vertical rockets through the center (3x3 '+')
+    ///   BombRocket    3 horizontal + 3 vertical rockets through the center (3x3 '+')
     /// </summary>
     public class ExplosionResolver
     {
@@ -88,11 +88,11 @@ namespace GemPop.Systems
                     yield return Line(c, request.Direction == RocketDirection.Horizontal, DamageSource.Rocket, eventId);
                     break;
 
-                case ExplosionKind.Tnt:
-                    yield return Area(c, 2, DamageSource.Tnt, eventId);
+                case ExplosionKind.Bomb:
+                    yield return Area(c, 2, DamageSource.Bomb, eventId);
                     break;
 
-                case ExplosionKind.TntTnt:
+                case ExplosionKind.BombBomb:
                     yield return Area(c, 3, DamageSource.Combo, eventId);
                     break;
 
@@ -105,7 +105,7 @@ namespace GemPop.Systems
                     break;
                 }
 
-                case ExplosionKind.TntRocket:
+                case ExplosionKind.BombRocket:
                 {
                     var batch = new CoroutineBatch(_board);
                     for (int offset = -1; offset <= 1; offset++)
@@ -183,7 +183,7 @@ namespace GemPop.Systems
         {
             Board board = _board.Board;
             _board.Fx.AreaExplosion(_board.Layout.CellToWorld(center), radius);
-            AudioManager.Play(Sfx.TntBoom, radius == 2 ? 1f : 0.8f);
+            AudioManager.Play(Sfx.BombBoom, radius == 2 ? 1f : 0.8f);
             for (int ring = 0; ring <= radius; ring++)
             {
                 for (int dx = -ring; dx <= ring; dx++)

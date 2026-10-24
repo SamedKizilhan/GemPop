@@ -1,6 +1,6 @@
 namespace GemPop.Items
 {
-    /// <summary>Rockets and TNTs. They fall like cubes and explode when tapped or damaged (Day 4).</summary>
+    /// <summary>Rockets and Bombs. They fall like cubes and explode when tapped or damaged (Day 4).</summary>
     public abstract class SpecialItem : GridItem
     {
         public override bool CanFall => true;

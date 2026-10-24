@@ -23,10 +23,10 @@ namespace GemPop.EditorTools
 
             Cube cube = BuildCube();
             Rocket rocket = BuildRocket();
-            Tnt tnt = BuildTnt();
-            Vase vase = BuildVase();
-            Stone stone = BuildStone();
-            ChaliceBox box = BuildChaliceBox();
+            Bomb bomb = BuildBomb();
+            Crate crate = BuildCrate();
+            Rock rock = BuildRock();
+            Chest box = BuildChest();
 
             string setPath = Out + "ItemPrefabSet.asset";
             var set = AssetDatabase.LoadAssetAtPath<ItemPrefabSet>(setPath);
@@ -35,7 +35,7 @@ namespace GemPop.EditorTools
                 set = ScriptableObject.CreateInstance<ItemPrefabSet>();
                 AssetDatabase.CreateAsset(set, setPath);
             }
-            set.EditorAssign(cube, rocket, tnt, vase, stone, box);
+            set.EditorAssign(cube, rocket, bomb, crate, rock, box);
             set.EditorAssignParticles(
                 new[]
                 {
@@ -44,11 +44,11 @@ namespace GemPop.EditorTools
                     LoadSprite("Cubes/Particles/particle_blue.png"),
                     LoadSprite("Cubes/Particles/particle_yellow.png"),
                 },
-                LoadMany("Obstacles/Vase/Particles/particle_vase_0{0}.png", 3),
-                LoadMany("Obstacles/Stone/Particles/particle_stone_0{0}.png", 3),
-                LoadMany("SpecialItems/TNT/Particles/particle_tnt_0{0}.png", 2),
-                LoadMany("Obstacles/ChaliceBox/Particles/BaseParticles/chalice_box_particle_0{0}.png", 5),
-                LoadMany("Obstacles/ChaliceBox/Particles/DoorParticles/chalice_box_door_particle_0{0}.png", 4),
+                LoadMany("Obstacles/Crate/Particles/particle_crate_0{0}.png", 3),
+                LoadMany("Obstacles/Rock/Particles/particle_rock_0{0}.png", 3),
+                LoadMany("SpecialItems/Bomb/Particles/particle_bomb_0{0}.png", 2),
+                LoadMany("Obstacles/Chest/Particles/BaseParticles/chest_particle_0{0}.png", 5),
+                LoadMany("Obstacles/Chest/Particles/DoorParticles/chest_door_particle_0{0}.png", 4),
                 LoadSprite("SpecialItems/Rocket/Particles/particle_smoke.png"),
                 LoadSprite("SpecialItems/Rocket/Particles/particle_star.png"));
             set.EditorAssignRocketParts(
@@ -88,7 +88,7 @@ namespace GemPop.EditorTools
             color = color,
             normal = LoadSprite($"Cubes/DefaultState/{n}.png"),
             rocketHint = LoadSprite($"Cubes/RocketState/{n}_rocket.png"),
-            tntHint = LoadSprite($"Cubes/TntState/{n}_tnt.png"),
+            bombHint = LoadSprite($"Cubes/BombState/{n}_bomb.png"),
         };
 
         private static Rocket BuildRocket()
@@ -103,69 +103,69 @@ namespace GemPop.EditorTools
             return SavePrefab<Rocket>(go);
         }
 
-        private static Tnt BuildTnt()
+        private static Bomb BuildBomb()
         {
-            GameObject go = NewSpriteObject("Tnt", LoadSprite("SpecialItems/TNT/TNT.png"), out SpriteRenderer sr);
-            Tnt tnt = go.AddComponent<Tnt>();
-            tnt.EditorSetRenderer(sr);
-            tnt.EditorSetCellFill(0.9f);
-            tnt.EditorSetVisualOffset(Vector2.zero);
-            return SavePrefab<Tnt>(go);
+            GameObject go = NewSpriteObject("Bomb", LoadSprite("SpecialItems/Bomb/Bomb.png"), out SpriteRenderer sr);
+            Bomb bomb = go.AddComponent<Bomb>();
+            bomb.EditorSetRenderer(sr);
+            bomb.EditorSetCellFill(0.9f);
+            bomb.EditorSetVisualOffset(Vector2.zero);
+            return SavePrefab<Bomb>(go);
         }
 
-        private static Vase BuildVase()
+        private static Crate BuildCrate()
         {
-            GameObject go = NewSpriteObject("Vase", LoadSprite("Obstacles/Vase/vase_01.png"), out SpriteRenderer sr);
-            Vase vase = go.AddComponent<Vase>();
-            vase.EditorSetRenderer(sr);
-            vase.EditorSetCellFill(0.92f);
-            vase.EditorSetSprites(LoadSprite("Obstacles/Vase/vase_01.png"), LoadSprite("Obstacles/Vase/vase_02.png"));
-            return SavePrefab<Vase>(go);
+            GameObject go = NewSpriteObject("Crate", LoadSprite("Obstacles/Crate/crate_01.png"), out SpriteRenderer sr);
+            Crate crate = go.AddComponent<Crate>();
+            crate.EditorSetRenderer(sr);
+            crate.EditorSetCellFill(0.92f);
+            crate.EditorSetSprites(LoadSprite("Obstacles/Crate/crate_01.png"), LoadSprite("Obstacles/Crate/crate_02.png"));
+            return SavePrefab<Crate>(go);
         }
 
-        private static Stone BuildStone()
+        private static Rock BuildRock()
         {
-            GameObject go = NewSpriteObject("Stone", LoadSprite("Obstacles/Stone/stone.png"), out SpriteRenderer sr);
-            Stone stone = go.AddComponent<Stone>();
-            stone.EditorSetRenderer(sr);
-            stone.EditorSetCellFill(0.92f);
-            return SavePrefab<Stone>(go);
+            GameObject go = NewSpriteObject("Rock", LoadSprite("Obstacles/Rock/rock.png"), out SpriteRenderer sr);
+            Rock rock = go.AddComponent<Rock>();
+            rock.EditorSetRenderer(sr);
+            rock.EditorSetCellFill(0.92f);
+            return SavePrefab<Rock>(go);
         }
 
-        private static ChaliceBox BuildChaliceBox()
+        private static Chest BuildChest()
         {
-            var root = new GameObject("ChaliceBox");
-            SpriteRenderer bg = Child(root, "Background", LoadSprite("Obstacles/ChaliceBox/ChaliceBoxBg.png"));
+            var root = new GameObject("Chest");
+            SpriteRenderer bg = Child(root, "Background", LoadSprite("Obstacles/Chest/ChestBg.png"));
 
             // 10 coins inside the box, two rows of five, laid out relative to the background sprite's
             // size so any art works: coin width = 26% of the box, row centers at +-30% of the half height.
-            Sprite chaliceSprite = LoadSprite("Obstacles/ChaliceBox/Chalice.png");
-            var shelves = new GameObject("Chalices");
+            Sprite coinSprite = LoadSprite("Obstacles/Chest/Coin.png");
+            var shelves = new GameObject("Coins");
             shelves.transform.SetParent(root.transform, false);
-            var chalices = new SpriteRenderer[ChaliceBox.ChalicesPerBox];
+            var coins = new SpriteRenderer[Chest.CoinsPerBox];
             Vector2 boxHalf = bg.sprite.bounds.extents;
-            float coinScale = boxHalf.x * 2f * 0.26f / chaliceSprite.bounds.size.x;
+            float coinScale = boxHalf.x * 2f * 0.26f / coinSprite.bounds.size.x;
             float[] colX = { -0.62f, -0.31f, 0f, 0.31f, 0.62f };
             float[] rowY = { 0.30f, -0.30f };
-            for (int i = 0; i < chalices.Length; i++)
+            for (int i = 0; i < coins.Length; i++)
             {
-                SpriteRenderer sr = Child(shelves, $"Chalice{i}", chaliceSprite);
+                SpriteRenderer sr = Child(shelves, $"Coin{i}", coinSprite);
                 sr.transform.localPosition = new Vector3(colX[i % 5] * boxHalf.x, rowY[i / 5] * boxHalf.y, 0f);
                 sr.transform.localScale = Vector3.one * coinScale;
-                chalices[i] = sr;
+                coins[i] = sr;
             }
 
-            SpriteRenderer doors = Child(root, "Doors", LoadSprite("Obstacles/ChaliceBox/ChaliceBoxDoors.png"));
+            SpriteRenderer doors = Child(root, "Doors", LoadSprite("Obstacles/Chest/ChestDoors.png"));
 
-            ChaliceBox box = root.AddComponent<ChaliceBox>();
-            box.EditorSetRenderers(bg, doors, chalices);
-            box.EditorSetMaxHealth(ChaliceBox.ChalicesPerBox);
+            Chest box = root.AddComponent<Chest>();
+            box.EditorSetRenderers(bg, doors, coins);
+            box.EditorSetMaxHealth(Chest.CoinsPerBox);
             // Slightly smaller than 2x2 and nudged down, so the box never touches the cube above it
             // (cubes overhang their cell by 0.06) nor a box stacked on top of it.
             box.EditorSetCellFill(0.96f);
             box.EditorSetVerticalStretch(1f);
             box.EditorSetVisualOffset(Vector2.zero);
-            return SavePrefab<ChaliceBox>(root);
+            return SavePrefab<Chest>(root);
         }
 
         // ---------- helpers ----------

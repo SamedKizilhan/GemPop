@@ -123,7 +123,7 @@ namespace GemPop.Systems.Fx
         }
 
         /// <summary>
-        /// TNT blast: several overlapping additive flashes of different sizes and offsets (so it reads as an
+        /// Bomb blast: several overlapping additive flashes of different sizes and offsets (so it reads as an
         /// irregular burst of light, not a neat circle), yellow-to-orange, plus sparks flying out.
         /// </summary>
         public static void Blast(Vector3 position, Sprite flash, float radius, int sortingOrder = DefaultSortingOrder)
@@ -133,7 +133,51 @@ namespace GemPop.Systems.Fx
             var yellow = new Color(1f, 0.95f, 0.45f);
             var orange = new Color(1f, 0.45f, 0.08f);
 
-            // core flashes
+            // 1) Detonation flash: one big near-white disc that pops to ~3x the blast radius in a few frames
+            //    and is gone in a quarter second. This is the "hit" the eye registers; everything after is the fire.
+            ParticleSystem flashPs = Create("BlastFlash", position, GlowSprite, sortingOrder + 3, true);
+            var flashMain = flashPs.main;
+            flashMain.startLifetime = 0.22f;
+            flashMain.startSpeed = 0f;
+            flashMain.startSize = radius * 3.2f;
+            flashMain.startColor = new Color(1f, 1f, 0.9f, 1f);
+            PointEmitter(flashPs);
+            var flashEmission = flashPs.emission;
+            flashEmission.rateOverTime = 0f;
+            flashEmission.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)1) });
+            var flashSize = flashPs.sizeOverLifetime;
+            flashSize.enabled = true;
+            flashSize.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.EaseInOut(0f, 0.35f, 1f, 1.1f));
+            var flashColor = flashPs.colorOverLifetime;
+            flashColor.enabled = true;
+            flashColor.color = FadeOut(0.3f);
+            flashPs.Play();
+            Object.Destroy(flashPs.gameObject, 0.6f);
+
+            // 2) Fireball: a handful of large orange-yellow blobs that swell out of the centre.
+            ParticleSystem fireball = Create("BlastFireball", position, GlowSprite, sortingOrder + 2, true);
+            var fbMain = fireball.main;
+            fbMain.startLifetime = new ParticleSystem.MinMaxCurve(0.35f, 0.5f);
+            fbMain.startSpeed = new ParticleSystem.MinMaxCurve(radius * 0.8f, radius * 2.0f);
+            fbMain.startSize = new ParticleSystem.MinMaxCurve(radius * 1.4f, radius * 2.2f);
+            fbMain.startColor = new ParticleSystem.MinMaxGradient(new Color(1f, 0.85f, 0.3f), new Color(1f, 0.4f, 0.05f));
+            var fbShape = fireball.shape;
+            fbShape.enabled = true;
+            fbShape.shapeType = ParticleSystemShapeType.Circle;
+            fbShape.radius = radius * 0.2f;
+            var fbEmission = fireball.emission;
+            fbEmission.rateOverTime = 0f;
+            fbEmission.SetBursts(new[] { new ParticleSystem.Burst(0f, (short)8) });
+            var fbSize = fireball.sizeOverLifetime;
+            fbSize.enabled = true;
+            fbSize.size = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.EaseInOut(0f, 0.5f, 1f, 1.3f));
+            var fbColor = fireball.colorOverLifetime;
+            fbColor.enabled = true;
+            fbColor.color = FadeOut(0.35f);
+            fireball.Play();
+            Object.Destroy(fireball.gameObject, 1f);
+
+            // 3) core flashes (the lingering yellow fire)
             ParticleSystem core = Create("BlastCore", position, flash, sortingOrder + 1, true);
             var main = core.main;
             main.startLifetime = new ParticleSystem.MinMaxCurve(0.6f, 1.0f);      // slower burn-out

@@ -112,16 +112,16 @@ MonoBehaviour:
   - color: 0
     normal: {fileID: 21300000, guid: 22167be3a842748d4a8b5415f7e34c97, type: 3}
     rocketHint: {fileID: 21300000, guid: c8956184aab9e4365858dfd7f8cda412, type: 3}
-    tntHint: {fileID: 21300000, guid: 0c97aaf035c2d4e95b8bb5098f22b8e8, type: 3}
+    bombHint: {fileID: 21300000, guid: 0c97aaf035c2d4e95b8bb5098f22b8e8, type: 3}
   - color: 1
     normal: {fileID: 21300000, guid: 62d8831ce9c37476c83f2ea3cf47c09b, type: 3}
     rocketHint: {fileID: 21300000, guid: 560ee945cf03c4c22aaf677eb2f20de7, type: 3}
-    tntHint: {fileID: 21300000, guid: 94b064aafab8242be859b25412171114, type: 3}
+    bombHint: {fileID: 21300000, guid: 94b064aafab8242be859b25412171114, type: 3}
   - color: 2
     normal: {fileID: 21300000, guid: 410b52f96df4d44aeb07d4a8d471db9d, type: 3}
     rocketHint: {fileID: 21300000, guid: 9bcec3560f9714a68ba91ec5ebe3715e, type: 3}
-    tntHint: {fileID: 21300000, guid: 85d53ddc446304556b71bc9d8c1257e0, type: 3}
+    bombHint: {fileID: 21300000, guid: 85d53ddc446304556b71bc9d8c1257e0, type: 3}
   - color: 3
     normal: {fileID: 21300000, guid: 6b3d3530b017845d2a757649d3aa6046, type: 3}
     rocketHint: {fileID: 21300000, guid: 3b6cf9aea4d76435c96ccb38d8299ec6, type: 3}
-    tntHint: {fileID: 21300000, guid: 911fb35b08bcc4c8ea146eeea2c1a5bb, type: 3}
+    bombHint: {fileID: 21300000, guid: 911fb35b08bcc4c8ea146eeea2c1a5bb, type: 3}

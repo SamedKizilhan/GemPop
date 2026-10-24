@@ -45,11 +45,11 @@ GridItem (abstract)            CanFall, IsObstacle, CellSpan, OccupiedCells, Tak
 ├── Cube                       color, hint sprite; destroyed by any explosion
 ├── SpecialItem (abstract)     falls; destroyed by damage and chain-explodes at its own cell
 │   ├── Rocket                 horizontal / vertical
-│   └── Tnt
+│   └── Bomb
 └── Obstacle (abstract)        Health, IsCleared
-    ├── Vase                   2 health, falls, at most 1 damage per event
-    ├── Stone                  1 health, static, ignores blasts
-    └── ChaliceBox             2x2, door phase (1 damage per event opens it) then chalice phase (10 chalices)
+    ├── Crate                   2 health, falls, at most 1 damage per event
+    ├── Rock                    1 health, static, ignores blasts
+    └── Chest                   2x2, lid phase (1 damage per event opens it) then coin phase (10 coins)
 ```
 `TakeDamage` is abstract: the board never asks "what type are you?"; each item applies its own rule.
 `DamageInfo.EventId` identifies the blast/explosion a hit belongs to, so "once per event" rules work without the
@@ -58,7 +58,7 @@ item knowing who hit it. Adding a new obstacle = one subclass + one prefab + one
 ### Turn loop
 ```
 tap → MatchFinder (flood fill)
-    → cube group: adjacent obstacles take blast damage, group removed; 2-3 pop, 4-5 gather into a rocket, 6+ into a TNT
+    → cube group: adjacent obstacles take blast damage, group removed; 2-3 pop, 4-5 gather into a rocket, 6+ into a bomb
     → special item: alone → explodes; with adjacent specials → all gather at the tapped cell and explode as one combo
     → ExplosionResolver resolves explosions in waves (specials hit during a wave form the next wave)
     → GravitySystem.Collapse (vertical only, obstacles block) + FindSpawnCells (top-reachable empties)
@@ -67,8 +67,8 @@ LevelSceneBootstrap: on TurnEnded → goals complete ? win : no moves ? lose
 ```
 
 ### Explosions
-Rockets: two halves fly outward, damaging cells one by one. TNT: 5x5. Combos (spec order): ≥2 TNT → 7x7;
-1 TNT + rockets → 3x3 `+` of rockets; rockets only → `+` of two rockets.
+Rockets: two halves fly outward, damaging cells one by one. Bomb: 5x5. Combos: ≥2 bombs → 7x7;
+1 bomb + rockets → 3x3 `+` of rockets; rockets only → `+` of two rockets.
 
 ### Events, not references
 `BoardController.ItemDamaged/ItemDestroyed → GoalTracker.Recount → TopBar` and `MoveTracker.Changed → TopBar`.
@@ -83,10 +83,10 @@ Visual tuning lives in code rather than in scene edits: item fit (`cellFill`, `v
 
 ## Decisions and assumptions
 - Falling is **vertical only**; diagonal fill was intentionally left out to keep gravity predictable.
-- Chalice box: 10 chalices per box; the door opens after one damage event; a box is removed when its chalices reach 0.
-  The goal panel shows the total remaining chalices.
+- Chest: 10 coins per chest; the lid breaks after one damage event; the chest is removed when its coins reach 0.
+  The goal panel shows the total remaining coins.
 - A combo includes the whole connected group of special items; a special hit by an explosion explodes individually in place.
-- A vase takes at most one damage per explosion event; in the chalice phase every rocket pass counts.
+- A crate takes at most one damage per explosion event; in the chest's coin phase every rocket pass counts.
 - Win/lose is evaluated when the board is still; clearing the last obstacle with the last move is a win.
 - Deadlock guard: if no move exists, cube colors are re-rolled in place so the board can never get stuck.
 - Animations are hand-written coroutines (`Tween`); no physics, no Animator, no third-party tween library.

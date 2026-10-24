@@ -24,13 +24,13 @@ namespace GemPop.Items
         /// <summary>Bottom-left cell of the item. Only the Board may change it.</summary>
         public Vector2Int Position { get; private set; }
 
-        /// <summary>Does gravity move this item? Cubes, specials and vases: yes. Stones, chalice boxes: no.</summary>
+        /// <summary>Does gravity move this item? Cubes, specials and crates: yes. Rocks, coin boxes: no.</summary>
         public virtual bool CanFall => false;
 
         /// <summary>Is this item one of the level goals?</summary>
         public virtual bool IsObstacle => false;
 
-        /// <summary>How many cells wide/tall the item is (1 for everything except the 2x2 Chalice Box).</summary>
+        /// <summary>How many cells wide/tall the item is (1 for everything except the 2x2 Coin Box).</summary>
         public virtual int CellSpan => 1;
 
         public virtual IEnumerable<Vector2Int> OccupiedCells

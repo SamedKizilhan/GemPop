@@ -35,7 +35,7 @@ namespace GemPop.Systems
     /// Gravity on the MODEL only: decides what moves where and updates the Board.
     /// It returns the moves so the view can animate them. No Unity physics involved (spec requirement).
     /// Rules: items fall straight down; they never pass through other items; non-falling items
-    /// (stones, chalice boxes) block everything above them, so empty cells below them stay empty.
+    /// (rocks, coin boxes) block everything above them, so empty cells below them stay empty.
     /// </summary>
     public static class GravitySystem
     {

@@ -1,7 +1,7 @@
 namespace GemPop.Items
 {
     /// <summary>1 health, does not fall, only special items can damage it.</summary>
-    public class Stone : Obstacle
+    public class Rock : Obstacle
     {
         public override DamageOutcome TakeDamage(DamageInfo info)
         {

@@ -11,7 +11,7 @@ namespace GemPop.Items
             public CubeColor color;
             public Sprite normal;
             public Sprite rocketHint;
-            public Sprite tntHint;
+            public Sprite bombHint;
         }
 
         [SerializeField] private Skin[] skins;
@@ -46,7 +46,7 @@ namespace GemPop.Items
             mainRenderer.sprite = Hint switch
             {
                 HintType.Rocket => skin.rocketHint,
-                HintType.Tnt    => skin.tntHint,
+                HintType.Bomb    => skin.bombHint,
                 _               => skin.normal,
             };
         }

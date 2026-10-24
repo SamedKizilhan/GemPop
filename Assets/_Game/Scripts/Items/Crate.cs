@@ -3,7 +3,7 @@ using UnityEngine;
 namespace GemPop.Items
 {
     /// <summary>2 health, falls, shows a cracked sprite after the first hit.</summary>
-    public class Vase : Obstacle
+    public class Crate : Obstacle
     {
         [SerializeField] private Sprite intactSprite;
         [SerializeField] private Sprite damagedSprite;

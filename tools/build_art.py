@@ -55,12 +55,19 @@ def draw_rocket(w=72, h=150):
     d.polygon([(0.34 * W, 0.86 * H), (0.66 * W, 0.86 * H), (0.6 * W, 0.98 * H), (0.4 * W, 0.98 * H)], fill=dark)
     return im.resize((w, h), Image.LANCZOS)
 
-def gradient_bg(w=1080, h=1920, top=(38, 70, 130), bottom=(18, 24, 48)):
+def gradient_bg(w=1080, h=1920, top=(44, 82, 150), bottom=(16, 22, 46)):
+    """Vertical gradient with a soft glow where the title sits and faint diagonal bands for texture."""
+    import math
     im = Image.new('RGBA', (w, h)); px = im.load()
+    gx, gy, gr = w * 0.5, h * 0.30, w * 0.75
     for y in range(h):
         t = y / (h - 1)
-        c = tuple(int(top[i] * (1 - t) + bottom[i] * t) for i in range(3)) + (255,)
-        for x in range(w): px[x, y] = c
+        base = [top[i] * (1 - t) + bottom[i] * t for i in range(3)]
+        for x in range(w):
+            d = math.hypot(x - gx, y - gy) / gr
+            glow = max(0.0, 1 - d) ** 2 * 70                       # warm light behind the title
+            band = 6 if ((x + y) // 90) % 2 == 0 else 0            # very subtle diagonal stripes
+            px[x, y] = (int(min(255, base[0] + glow + band)), int(min(255, base[1] + glow * 0.9 + band)), int(min(255, base[2] + glow * 0.6 + band)), 255)
     return im
 
 def crops(im, n, size):
@@ -82,7 +89,7 @@ def main():
         tile = load(os.path.join(PUZ, f'Tiles {key}', f'tile{name}_01.png'))
         save(tile, f'Cubes/DefaultState/{key}.png')
         save(center_paste(tile, rocket_icon), f'Cubes/RocketState/{key}_rocket.png')
-        save(center_paste(tile, fit(bomb, int(tile.width * 0.55))), f'Cubes/TntState/{key}_tnt.png')
+        save(center_paste(tile, fit(bomb, int(tile.width * 0.55))), f'Cubes/BombState/{key}_bomb.png')
         star = load(os.path.join(PUZ, f'Tiles {key}', f'tile{name}_08.png'))
         save(fit(star, 40), f'Cubes/Particles/particle_{key}.png')
 
@@ -98,24 +105,24 @@ def main():
     save(fit(load(os.path.join(PART, 'smoke_05.png')), 128), 'SpecialItems/Rocket/Particles/particle_smoke.png')
     save(fit(load(os.path.join(PART, 'star_06.png')), 96), 'SpecialItems/Rocket/Particles/particle_star.png')
 
-    # ---- TNT ----
-    save(bomb, 'SpecialItems/TNT/TNT.png')
-    save(fit(load(os.path.join(PART, 'smoke_03.png')), 96), 'SpecialItems/TNT/Particles/particle_tnt_01.png')
-    save(fit(load(os.path.join(PART, 'smoke_08.png')), 96), 'SpecialItems/TNT/Particles/particle_tnt_02.png')
+    # ---- Bomb ----
+    save(bomb, 'SpecialItems/Bomb/Bomb.png')
+    save(fit(load(os.path.join(PART, 'smoke_03.png')), 96), 'SpecialItems/Bomb/Particles/particle_bomb_01.png')
+    save(fit(load(os.path.join(PART, 'smoke_08.png')), 96), 'SpecialItems/Bomb/Particles/particle_bomb_02.png')
 
     # ---- obstacles ----
-    rock = trim(load(os.path.join(PLAT, 'Tiles', 'rock.png'))); save(rock, 'Obstacles/Stone/stone.png')
-    for i, c in enumerate(crops(rock, 3, 36), 1): save(c, f'Obstacles/Stone/Particles/particle_stone_0{i}.png')
+    rock = trim(load(os.path.join(PLAT, 'Tiles', 'rock.png'))); save(rock, 'Obstacles/Rock/rock.png')
+    for i, c in enumerate(crops(rock, 3, 36), 1): save(c, f'Obstacles/Rock/Particles/particle_rock_0{i}.png')
 
     crate = trim(load(os.path.join(PLAT, 'Tiles', 'boxCrate.png'))); cracked = trim(load(os.path.join(PLAT, 'Tiles', 'boxCrate_single.png')))
-    save(crate, 'Obstacles/Vase/vase_01.png'); save(cracked, 'Obstacles/Vase/vase_02.png')
-    for i, c in enumerate(crops(crate, 3, 36), 1): save(c, f'Obstacles/Vase/Particles/particle_vase_0{i}.png')
+    save(crate, 'Obstacles/Crate/crate_01.png'); save(cracked, 'Obstacles/Crate/crate_02.png')
+    for i, c in enumerate(crops(crate, 3, 36), 1): save(c, f'Obstacles/Crate/Particles/particle_crate_0{i}.png')
 
     doors = trim(load(os.path.join(PLAT, 'Tiles', 'boxCoin.png'))); bg = trim(load(os.path.join(PLAT, 'Tiles', 'boxCoin_disabled.png')))
     coin = trim(load(os.path.join(PLAT, 'Items', 'coinGold.png')))
-    save(doors, 'Obstacles/ChaliceBox/ChaliceBoxDoors.png'); save(bg, 'Obstacles/ChaliceBox/ChaliceBoxBg.png'); save(coin, 'Obstacles/ChaliceBox/Chalice.png')
-    for i, c in enumerate(crops(bg, 5, 36), 1): save(c, f'Obstacles/ChaliceBox/Particles/BaseParticles/chalice_box_particle_0{i}.png')
-    for i, c in enumerate(crops(doors, 4, 36), 1): save(c, f'Obstacles/ChaliceBox/Particles/DoorParticles/chalice_box_door_particle_0{i}.png')
+    save(doors, 'Obstacles/Chest/ChestDoors.png'); save(bg, 'Obstacles/Chest/ChestBg.png'); save(coin, 'Obstacles/Chest/Coin.png')
+    for i, c in enumerate(crops(bg, 5, 36), 1): save(c, f'Obstacles/Chest/Particles/BaseParticles/chest_particle_0{i}.png')
+    for i, c in enumerate(crops(doors, 4, 36), 1): save(c, f'Obstacles/Chest/Particles/DoorParticles/chest_door_particle_0{i}.png')
 
     # ---- UI (Kenney UI pack, "Double" = 2x resolution) ----
     def ui(color, name): return load(os.path.join(UI, color, 'Double', name))

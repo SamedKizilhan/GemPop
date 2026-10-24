@@ -13,11 +13,11 @@ namespace GemPop.Systems
     {
         public const int MinBlastSize = 2;
         public const int RocketThreshold = 4;   // 4 or 5 cubes -> rocket
-        public const int TntThreshold = 6;      // 6+ cubes -> TNT
+        public const int BombThreshold = 6;      // 6+ cubes -> Bomb
 
         public static HintType HintFor(int groupSize)
         {
-            if (groupSize >= TntThreshold) return HintType.Tnt;
+            if (groupSize >= BombThreshold) return HintType.Bomb;
             if (groupSize >= RocketThreshold) return HintType.Rocket;
             return HintType.None;
         }

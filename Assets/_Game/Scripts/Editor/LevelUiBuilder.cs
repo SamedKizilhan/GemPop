@@ -113,9 +113,9 @@ namespace GemPop.EditorTools
 
             var topBar = bar.gameObject.AddComponent<TopBar>();
             topBar.EditorWire(moves, slots,
-                LoadSprite("Obstacles/Vase/vase_01.png"),
-                LoadSprite("Obstacles/Stone/stone.png"),
-                LoadSprite("Obstacles/ChaliceBox/Chalice.png"),
+                LoadSprite("Obstacles/Crate/crate_01.png"),
+                LoadSprite("Obstacles/Rock/rock.png"),
+                LoadSprite("Obstacles/Chest/Coin.png"),
                 new[] { goalTab, moveTab });
             return topBar;
         }
@@ -236,7 +236,7 @@ namespace GemPop.EditorTools
         // ------------------------------------------------------------------ helpers
 
         /// <summary>TMP's bundled outline preset; the SDF shader only draws outlines when its OUTLINE_ON keyword is set.</summary>
-        private static Material OutlineMaterial()
+        internal static Material OutlineMaterial()
         {
             const string path = "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat";
             var material = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -244,14 +244,14 @@ namespace GemPop.EditorTools
             return material;
         }
 
-        private static Sprite LoadSprite(string relativePath)
+        internal static Sprite LoadSprite(string relativePath)
         {
             var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(Art + relativePath);
             if (sprite == null) Debug.LogError("[LevelUiBuilder] Sprite not found: " + Art + relativePath);
             return sprite;
         }
 
-        private static RectTransform MakeImage(Transform parent, string name, Sprite sprite, out Image image)
+        internal static RectTransform MakeImage(Transform parent, string name, Sprite sprite, out Image image)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(Image));
             go.transform.SetParent(parent, false);
@@ -261,7 +261,7 @@ namespace GemPop.EditorTools
             return go.GetComponent<RectTransform>();
         }
 
-        private static TMP_Text Label(Transform parent, string name, string text, float size, Color color, Vector2 anchor, Vector2 sizeDelta)
+        internal static TMP_Text Label(Transform parent, string name, string text, float size, Color color, Vector2 anchor, Vector2 sizeDelta)
         {
             var go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
             go.transform.SetParent(parent, false);
@@ -312,14 +312,14 @@ namespace GemPop.EditorTools
             return overlay;
         }
 
-        private static void Anchor(RectTransform rect, Vector2 min, Vector2 max, Vector2 pivot)
+        internal static void Anchor(RectTransform rect, Vector2 min, Vector2 max, Vector2 pivot)
         {
             rect.anchorMin = min;
             rect.anchorMax = max;
             rect.pivot = pivot;
         }
 
-        private static void Centered(RectTransform rect, Vector2 size, Vector2 offset)
+        internal static void Centered(RectTransform rect, Vector2 size, Vector2 offset)
         {
             Anchor(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
             rect.sizeDelta = size;

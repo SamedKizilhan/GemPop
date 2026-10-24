@@ -10,9 +10,9 @@ namespace GemPop.Audio
             switch (item)
             {
                 case Cube:       AudioManager.Play(Sfx.CubePop); break;
-                case Vase:       AudioManager.Play(Sfx.VaseBreak); break;
-                case Stone:      AudioManager.Play(Sfx.StoneCrack); break;
-                case ChaliceBox: AudioManager.Play(Sfx.ChaliceBoxBreak); AudioManager.Play(Sfx.DoorBreak); break;
+                case Crate:       AudioManager.Play(Sfx.CrateBreak); break;
+                case Rock:      AudioManager.Play(Sfx.RockCrack); break;
+                case Chest: AudioManager.Play(Sfx.ChestBreak); AudioManager.Play(Sfx.DoorBreak); break;
             }
         }
 
@@ -20,13 +20,13 @@ namespace GemPop.Audio
         {
             switch (item)
             {
-                case Vase:
-                    AudioManager.Play(Sfx.VaseCrack);
+                case Crate:
+                    AudioManager.Play(Sfx.CrateCrack);
                     break;
-                case ChaliceBox box:
-                    // the first hit opens the door (no chalice taken yet); later hits collect chalices
-                    if (box.ChalicesRemaining == ChaliceBox.ChalicesPerBox) AudioManager.Play(Sfx.DoorBreak);
-                    else AudioManager.Play(Sfx.ChaliceClink);
+                case Chest box:
+                    // the first hit opens the door (no coin taken yet); later hits collect coins
+                    if (box.CoinsRemaining == Chest.CoinsPerBox) AudioManager.Play(Sfx.DoorBreak);
+                    else AudioManager.Play(Sfx.CoinClink);
                     break;
             }
         }
