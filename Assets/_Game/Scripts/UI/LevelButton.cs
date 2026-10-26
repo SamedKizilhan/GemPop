@@ -7,7 +7,8 @@ using UnityEngine.UI;
 namespace GemPop.UI
 {
     /// <summary>
-    /// MainScene button. Shows "Level N" or "Finished" and opens the LevelScene.
+    /// MainScene button. Shows "Level N" (opens the LevelScene) or, once every level is done,
+    /// "Play Again" (resets progress to level 1 and starts over).
     /// It does not decide what the current level is; it asks LevelProgress and
     /// subscribes to its Changed event so it refreshes itself (Observer pattern).
     /// </summary>
@@ -16,7 +17,7 @@ namespace GemPop.UI
     {
         [SerializeField] private TMP_Text label;
         [SerializeField] private string levelFormat = "Level {0}";
-        [SerializeField] private string finishedText = "Finished";
+        [SerializeField] private string finishedText = "Play Again";
 
         private Button _button;
 
@@ -53,9 +54,8 @@ namespace GemPop.UI
 
         private void OnClicked()
         {
-            // Spec: when all levels are finished the button only displays text, there is nothing to play.
-            if (LevelProgress.AllLevelsFinished) return;
             AudioManager.Play(Sfx.Click);
+            if (LevelProgress.AllLevelsFinished) LevelProgress.Reset();   // "Play Again": back to level 1
             SceneLoader.LoadLevelScene();
         }
     }
