@@ -42,3 +42,6 @@ crashlytics-build.properties
 # source packs and scratch (not part of the project)
 /kenney_images/
 /_to_delete/
+
+# Unity Android/IL2CPP build cache
+/.utmp/
