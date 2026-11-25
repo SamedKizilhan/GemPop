@@ -31,12 +31,14 @@ namespace GemPop.Items
         {
             if (CurrentPhase == Phase.Door)
             {
-                if (info.EventId == _lastDoorEventId) return DamageOutcome.Ignored;
                 _lastDoorEventId = info.EventId;
                 CurrentPhase = Phase.Coin;
                 RefreshVisuals();
                 return DamageOutcome.Damaged;
             }
+
+            // The event that opened the door may still hit the chest's other cells: it must not collect coins.
+            if (info.EventId == _lastDoorEventId) return DamageOutcome.Ignored;
 
             Health = Mathf.Max(0, Health - info.Amount);
             RefreshVisuals();
